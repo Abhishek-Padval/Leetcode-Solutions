@@ -1,0 +1,30 @@
+/**
+ * @param {number} target
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function(target, nums) {
+    let result = Number.MAX_SAFE_INTEGER
+	let left = 0;
+	let right = 0;
+	let sum = 0;
+	if (nums[left] >= target) return 1;
+	while (left < nums.length) {
+		if (sum < target) { //10 < 7
+			sum = sum + nums[left];	// sum = 6 + 4
+			left++; // 5
+		}
+		while (sum >= target) { // 10> 7
+			if (left-right < result) {
+				result = left - right;
+			}
+			sum = sum - nums[right]; // sum = 10 - 3
+			right++; // 1
+		}
+	}
+	if (result == Number.MAX_SAFE_INTEGER) {
+		return 0;
+	} else {
+		return result;
+	}
+};
